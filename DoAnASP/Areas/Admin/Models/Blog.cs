@@ -27,5 +27,13 @@ namespace DoAnASP.Areas.Admin.Models
         public int IDNguoiDuyet { get; set; }
        
         public int TrangThai { get; set; }
+        public Blog()
+        {
+            TrangThai = 1;
+            NgayTao = DateTime.Now;
+            NgayDuyet = DateTime.Now;
+
+
+        }
     }
 }

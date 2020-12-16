@@ -130,7 +130,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 

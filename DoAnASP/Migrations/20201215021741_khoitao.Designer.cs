@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnASP.Migrations
 {
     [DbContext(typeof(DpContext))]
-    [Migration("20201205090658_khoitao")]
+    [Migration("20201215021741_khoitao")]
     partial class khoitao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
