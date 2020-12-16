@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnASP.Areas.Admin.Models;
 using DoAnASP.Areas.User.Data;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace DoAnASP.Areas.User.Controllers
 {
@@ -24,6 +26,7 @@ namespace DoAnASP.Areas.User.Controllers
         public async Task<IActionResult> Index()
         {
             var dpContext = _context.Blogs.Include(b => b.loai);
+          
             return View(await dpContext.ToListAsync());
         }
 
@@ -49,7 +52,7 @@ namespace DoAnASP.Areas.User.Controllers
         // GET: User/Blogs/Create
         public IActionResult Create()
         {
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai");
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe");
             return View();
         }
 
@@ -58,15 +61,24 @@ namespace DoAnASP.Areas.User.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IDBlog,TieuDe,HinhAnh,TomTat,NoiDung,IDLoai,IDNguoiTao,NgayTao,NgayDuyet,View,IDNguoiDuyet,TrangThai")] Blog blog)
+        public async Task<IActionResult> Create([Bind("IDBlog,TieuDe,HinhAnh,TomTat,NoiDung,IDLoai,IDNguoiTao,NgayTao,NgayDuyet,View,IDNguoiDuyet,TrangThai")] Blog blog , IFormFile ful)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
+                var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blog", blog.IDBlog + "." +
+                ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                using (var stream = new FileStream(parth, FileMode.Create))
+                {
+                    await ful.CopyToAsync(stream);
+                }
+                blog.HinhAnh = blog.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+                _context.Update(blog);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 

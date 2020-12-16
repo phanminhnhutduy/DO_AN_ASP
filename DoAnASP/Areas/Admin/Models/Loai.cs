@@ -14,9 +14,12 @@ namespace DoAnASP.Areas.Admin.Models
         public DateTime NgayTao { get; set; }
         public int IDNguoiTao { get; set; }
         [ForeignKey("IDTK")]
+        public int TrangThai { get; set; }
         public virtual TaiKhoan loai { get; set; }
         public ICollection<Blog> blogs { get; set; }
         public ICollection<CauHoi> cauhois { get; set; }
-
+        public Loai() { TrangThai = 1;
+            NgayTao = DateTime.Now;
+        }
     }
 }

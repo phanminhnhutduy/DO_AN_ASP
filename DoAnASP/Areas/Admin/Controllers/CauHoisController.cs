@@ -51,7 +51,7 @@ namespace DoAnASP.Areas.Admin.Controllers
         // GET: Admin/CauHois/Create
         public IActionResult Create()
         {
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai");
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe");
             return View();
         }
 
@@ -77,7 +77,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", cauHoi.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", cauHoi.IDLoai);
             return View(cauHoi);
         }
 

@@ -28,6 +28,11 @@ namespace DoAnASP.Areas.Admin.Controllers
             var dpContext = _context.Blogs.Include(b => b.loai);
             return View(await dpContext.ToListAsync());
         }
+        public async Task<IActionResult> ChoDuyet()
+        {
+            var dpContext = _context.Blogs.Include(b => b.loai);
+            return View(await dpContext.ToListAsync());
+        }
 
         // GET: Admin/Blogs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -51,7 +56,7 @@ namespace DoAnASP.Areas.Admin.Controllers
         // GET: Admin/Blogs/Create
         public IActionResult Create()
         {
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai");
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe");
             return View();
         }
 
@@ -77,7 +82,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 
@@ -130,7 +135,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 

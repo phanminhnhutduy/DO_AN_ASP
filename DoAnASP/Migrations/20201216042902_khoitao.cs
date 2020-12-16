@@ -33,14 +33,15 @@ namespace DoAnASP.Migrations
                     TieuDe = table.Column<string>(nullable: true),
                     NgayTao = table.Column<DateTime>(nullable: false),
                     IDNguoiTao = table.Column<int>(nullable: false),
-                    IDTK = table.Column<int>(nullable: true)
+                    TrangThai = table.Column<int>(nullable: false),
+                    loaiIDTK = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Loais", x => x.IDLoai);
                     table.ForeignKey(
-                        name: "FK_Loais_TaiKhoans_IDTK",
-                        column: x => x.IDTK,
+                        name: "FK_Loais_TaiKhoans_loaiIDTK",
+                        column: x => x.loaiIDTK,
                         principalTable: "TaiKhoans",
                         principalColumn: "IDTK",
                         onDelete: ReferentialAction.Restrict);
@@ -192,9 +193,9 @@ namespace DoAnASP.Migrations
                 column: "IDTK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Loais_IDTK",
+                name: "IX_Loais_loaiIDTK",
                 table: "Loais",
-                column: "IDTK");
+                column: "loaiIDTK");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnASP.Migrations
 {
     [DbContext(typeof(DpContext))]
-    [Migration("20201205090658_khoitao")]
+    [Migration("20201216042902_khoitao")]
     partial class khoitao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,18 +177,21 @@ namespace DoAnASP.Migrations
                     b.Property<int>("IDNguoiTao")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IDTK")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TieuDe")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("loaiIDTK")
+                        .HasColumnType("int");
+
                     b.HasKey("IDLoai");
 
-                    b.HasIndex("IDTK");
+                    b.HasIndex("loaiIDTK");
 
                     b.ToTable("Loais");
                 });
@@ -267,7 +270,7 @@ namespace DoAnASP.Migrations
                 {
                     b.HasOne("DoAnASP.Areas.Admin.Models.TaiKhoan", "loai")
                         .WithMany()
-                        .HasForeignKey("IDTK");
+                        .HasForeignKey("loaiIDTK");
                 });
 #pragma warning restore 612, 618
         }

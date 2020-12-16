@@ -25,6 +25,9 @@ namespace DoAnASP.Areas.Admin.Models
         public DateTime NgayTao { get; set; }
         public string NoiDung { get; set; }
         public int TrangThai { get; set; }
+        public BinhLuan() { TrangThai = 1;
+            NgayTao = DateTime.Now;
+        }
         
     }
 }
